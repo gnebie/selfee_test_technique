@@ -1,24 +1,31 @@
 version: '3.8'
 
 services:
-  secure_api:
+  secureapi:
     build: SecurePokeAPI
     container_name: selfee_secure_api
     volumes:
       - ./SecurePokeAPI:/app
       - ./data:/app/db/
     ports:
-      - "8001:8000"
+      - "8001:8001"
     env_file:
       - .env
-  pokemon_api:
+    networks:
+      - poke-net
+  pokemonapi:
     build: PokemonAPI
     container_name: selfee_pokemon_api
     volumes:
       - ./PokemonAPI:/app
     ports:
-      - "8002:8000"
+      - "8002:8002"
     env_file:
       - .env
     depends_on:
-    - secure_api
+    - secureapi
+    networks:
+      - poke-net
+networks:
+  poke-net:
+    driver: bridge

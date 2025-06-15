@@ -5,7 +5,9 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
 from django.shortcuts import render
+import logging
 
+logger = logging.getLogger(__name__)
 SECURE_API_BASE = settings.SECURE_API_URL
 POKEAPI_BASE = settings.POKEAPI_BASE
 
@@ -15,17 +17,19 @@ def get_user_groups(request):
         return []
 
     r = httpx.get(f"{SECURE_API_BASE}/user/me/", headers={"Authorization": token})
+    
     if r.status_code != 200:
-        return []
-    return r.json().get("groups", [])
+        return [], r.status_code
+    return r.json().get("groups", []), r.status_code
 
 
 class PokemonListView(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get(self, request):
-        groups = get_user_groups(request)
+        groups, status = get_user_groups(request)
         if not groups:
+            if status == 401:
+                return Response({"detail": "user not found"}, status=401)
+            logger.warning("no group found for user ")
             return Response({"detail": "No valid group"}, status=403)
 
         resp = httpx.get(f"{POKEAPI_BASE}/type")
@@ -37,20 +41,21 @@ class PokemonListView(APIView):
         user_pokemons = set()
         for type_url in list(set(user_types)):
             resp = httpx.get(type_url)
-            types = resp.json()["results"]
+            types = resp.json()
             for pokemon in types.get("pokemon", []):
-                user_pokemons.add(pokemon.get("url"))
+                user_pokemons.add(pokemon.get("pokemon", {}).get("name"))
         list_pokemon = list(user_pokemons)
         list_pokemon.sort()
         return Response(list_pokemon)
 
 
 class PokemonDetailView(APIView):
-    permission_classes = [IsAuthenticated]
-
     def get(self, request, name):
-        groups = get_user_groups(request)
+        groups, status = get_user_groups(request)
         if not groups:
+            if status == 401:
+                return Response({"detail": "user not found"}, status=401)
+            logger.warning("no group found for user ")
             return Response({"detail": "No valid group"}, status=403)
 
         r = httpx.get(f"{POKEAPI_BASE}/pokemon/{name}")

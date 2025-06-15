@@ -19,9 +19,9 @@ COPY . .
 
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 
-EXPOSE 8000
+EXPOSE 8001
 
 
-CMD ["poetry", "run", "python", "app/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["poetry", "run", "python", "app/manage.py", "runserver", "0.0.0.0:8001"]
 
-# CMD ["poetry", "run", "gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]
+# CMD ["poetry", "run", "gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8001"]
