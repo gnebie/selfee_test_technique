@@ -9,4 +9,3 @@ urlpatterns = [
         name="pokemon-name",
     ),
 ]
-

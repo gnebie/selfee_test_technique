@@ -6,7 +6,9 @@ from rest_framework.views import APIView
 import httpx
 
 from django.conf import settings
+
 POKEAPI_TYPES_URL = settings.POKEAPI_TYPES_URL
+
 
 class MeView(APIView):
     permission_classes = [IsAuthenticated]

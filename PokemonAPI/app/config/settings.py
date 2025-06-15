@@ -26,7 +26,6 @@ SECRET_KEY = "django-insecure-8-r*rtd0ri*xtfe4r%*3d7o$oj+tmgo5)5k85!yw^e%av8z^_n
 DEBUG = True
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -124,7 +123,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SECURE_API_URL = "http://secureapi:8001/api"
 POKEAPI_BASE = "https://pokeapi.co/api/v2"
 
-ALLOWED_HOSTS = ["*"] 
+ALLOWED_HOSTS = ["*"]
 
 LOG_DIR = BASE_DIR / "logs"
 LOG_DIR.mkdir(exist_ok=True)

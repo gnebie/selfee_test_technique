@@ -1,15 +1,13 @@
 import httpx
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
-from django.shortcuts import render
 import logging
 
 logger = logging.getLogger(__name__)
 SECURE_API_BASE = settings.SECURE_API_URL
 POKEAPI_BASE = settings.POKEAPI_BASE
+
 
 def get_user_groups(request):
     token = request.headers.get("Authorization")
@@ -17,7 +15,7 @@ def get_user_groups(request):
         return []
 
     r = httpx.get(f"{SECURE_API_BASE}/user/me/", headers={"Authorization": token})
-    
+
     if r.status_code != 200:
         return [], r.status_code
     return r.json().get("groups", []), r.status_code
