@@ -1,0 +1,115 @@
+logs/
+__pycache__
+*/__pycache__
+**/__pycache__
+venv/
+config.json
+config-files/*.json
+config-files/*.db
+cookiecutter.json
+
+config_files/.env
+config_files/.env-dev
+config_files/.env-prod
+
+config_files/cert.pem
+config_files/key.pem
+config_files/*.pem
+
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.so
+
+# Environnements virtuels
+.venv/
+env/
+venv/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+*.pot
+
+# Documentation
+docs/_build/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environment
+.env
+.venv/
+venv/
+
+# PyCharm
+.idea
+
+# Python mode for VIM
+.ropeproject
+**/*.swp
+
+# VS Code
+.vscode/
+
+# Docker
+docker-compose.yml
+Dockerfile
+
+# Logs
+logs/
+
+cookiecutter.json
+
+# Configuration Files
+config.json
+config-files/*.json
+config-files/*.db
+config-files/*.env
+config-files/*.yml
+config-files/*.pem
+config-files/*.xml
+config-files/*.conf
+config-files/.env*
+
+
+tests/reports
+
+launch_everything.sh
+
+poetry.lock

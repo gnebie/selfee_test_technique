@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  secure_api:
+    build:
+      context: .
+      dockerfile: SecurePokeAPI/Dockerfile
+    container_name: selfee_secure_api
+    volumes:
+      - ./SecurePokeAPI:/app
+      - ./data:/app/db/
+    ports:
+      - "8001:8000"
+    env_file:
+      - .env
+  pokemon_api:
+    build:
+      context: .
+      dockerfile: PokemonAPI/Dockerfile
+    container_name: selfee_pokemon_api
+    volumes:
+      - ./PokemonAPI:/app
+    ports:
+      - "8002:8000"
+    env_file:
+      - .env
+    depends_on:
+    - secure_api
