@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -179,3 +180,5 @@ LOGGING = {
         },
     },
 }
+
+POKEAPI_TYPES_URL = os.environ.get("POKEAPI_TYPES_URL", "https://pokeapi.co/api/v2/type")
