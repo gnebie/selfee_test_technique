@@ -1,0 +1,12 @@
+[
+  {"username": "ash", "password": "pikachu"},
+  {"username": "misty", "password": "staryu"},
+  {"username": "brock", "password": "onix"},
+  {"username": "jessie", "password": "ekans"},
+  {"username": "james", "password": "koffing"},
+  {"username": "gary", "password": "eevee"},
+  {"username": "prof_oak", "password": "tauros"},
+  {"username": "may", "password": "torchic"},
+  {"username": "dawn", "password": "piplup"},
+  {"username": "serena", "password": "fennekin"}
+]

@@ -87,9 +87,6 @@ venv/
 # VS Code
 .vscode/
 
-# Docker
-docker-compose.yml
-Dockerfile
 
 # Logs
 logs/
@@ -113,3 +110,5 @@ tests/reports
 launch_everything.sh
 
 poetry.lock
+
+bdd
