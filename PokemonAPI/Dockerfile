@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY pyproject.toml ./
+COPY ./pyproject.toml ./
 
 RUN pip install poetry
 
@@ -21,4 +21,6 @@ RUN poetry config virtualenvs.create false && poetry install --no-interaction --
 
 EXPOSE 8000
 
-CMD ["gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["poetry", "run", "python", "app/manage.py", "runserver", "0.0.0.0:8000"]
+
+# CMD ["poetry", "run", "gunicorn", "app.wsgi:application", "--bind", "0.0.0.0:8000"]

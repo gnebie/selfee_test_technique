@@ -35,8 +35,8 @@ class PokemonListView(APIView):
             if type["name"] in groups:
                 user_types.append(type["url"])
         user_pokemons = set()
-        for type in list(set(user_types)):
-            resp = httpx.get(f"{POKEAPI_BASE}/pokemon?limit=1000")
+        for type_url in list(set(user_types)):
+            resp = httpx.get(type_url)
             types = resp.json()["results"]
             for pokemon in types.get("pokemon", []):
                 user_pokemons.add(pokemon.get("url"))
@@ -48,12 +48,12 @@ class PokemonListView(APIView):
 class PokemonDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, name_or_id):
+    def get(self, request, name):
         groups = get_user_groups(request)
         if not groups:
             return Response({"detail": "No valid group"}, status=403)
 
-        r = httpx.get(f"{POKEAPI_BASE}/pokemon/{name_or_id}")
+        r = httpx.get(f"{POKEAPI_BASE}/pokemon/{name}")
         if r.status_code != 200:
             return Response({"detail": "Pokemon not found"}, status=r.status_code)
 

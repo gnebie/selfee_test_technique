@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   secure_api:
-    build:
-      context: .
-      dockerfile: SecurePokeAPI/Dockerfile
+    build: SecurePokeAPI
     container_name: selfee_secure_api
     volumes:
       - ./SecurePokeAPI:/app
@@ -14,9 +12,7 @@ services:
     env_file:
       - .env
   pokemon_api:
-    build:
-      context: .
-      dockerfile: PokemonAPI/Dockerfile
+    build: PokemonAPI
     container_name: selfee_pokemon_api
     volumes:
       - ./PokemonAPI:/app
