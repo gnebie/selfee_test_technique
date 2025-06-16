@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-13&fk6p0$&56+&*dsgi4=35vg=rn*$@j1&rwp^-7ct_k*ryige"
+SECRET_KEY = "django-example-insecure-13&fk6p0$&56+&*dsgi4=35vg=rn*$@j1&rwp^-7ct_k*ryige"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"] 
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'api',
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "api",
 ]
 
 MIDDLEWARE = [
@@ -84,17 +84,15 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    )
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
 # Password validation
@@ -180,4 +178,6 @@ LOGGING = {
     },
 }
 
-POKEAPI_TYPES_URL = os.environ.get("POKEAPI_TYPES_URL", "https://pokeapi.co/api/v2/type")
+POKEAPI_TYPES_URL = os.environ.get(
+    "POKEAPI_TYPES_URL", "https://pokeapi.co/api/v2/type"
+)

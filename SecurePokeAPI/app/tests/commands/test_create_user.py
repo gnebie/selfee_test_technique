@@ -2,6 +2,7 @@ import pytest
 from api.management.commands.create_users import seed_users_from_data
 from django.contrib.auth.models import User
 
+
 @pytest.mark.django_db
 def test_seed_users_creates_users():
     data = [
@@ -13,6 +14,7 @@ def test_seed_users_creates_users():
     assert result["created"] == ["ash", "misty"]
     assert User.objects.filter(username="ash").exists()
     assert User.objects.filter(username="misty").exists()
+
 
 @pytest.mark.django_db
 def test_seed_users_skips_existing():

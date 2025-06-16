@@ -26,8 +26,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         json_path = (
-            Path(__file__).resolve().parent.parent.parent
-            / "fixtures"
+            Path(__file__).resolve().parent.parent.parent.parent.parent
             / "test_users.json"
         )
         with open(json_path) as f:

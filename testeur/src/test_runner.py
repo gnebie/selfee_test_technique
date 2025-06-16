@@ -53,17 +53,14 @@ assert httpx.post(secureapi.login(), json={"username": ash.name, "password": ash
 # Authentification
 auth_user(ash)
 
-# GROUP ADD
 print("add croup fire to ash")
 r = httpx.post(secureapi.add(), headers=ash.headers())
 assert r.status_code in (200, 201), "Group add failed (fire)"
 
-# Test Add group without token
 print("add croup fire without user")
 r = httpx.post(secureapi.add())  # no headers
 assert r.status_code == 401, "Group add without auth should be unauthorized"
 
-# ME
 r = httpx.get(secureapi.me(), headers=ash.headers())
 print("get my user info")
 assert r.status_code == 200, "Should get user info"
@@ -71,25 +68,21 @@ data = r.json()
 assert ash.name == data["username"]
 assert "fire" in data["groups"], "User should belong to 'fire' group"
 
-# Test /me without token
 print("test me without user")
 r = httpx.get(secureapi.me())  # no headers
 assert r.status_code == 401, "/me without auth should fail"
 
-# POKEMON LIST
 print("get ash pokemon list")
 r = httpx.get(pokemomapi.catch_them_all(), headers=ash.headers())
 assert r.status_code == 200, "User with fire group should access some pokemons"
 pokemons = r.json()
 assert isinstance(pokemons, list), "Expected a list of pokemons"
-# assert any("fire" in p["types"] for p in pokemons), "Should return at least one fire-type pokemon"
 
 print("try to get no token pokemon list")
 bad_headers = {"Authorization": "Bearer invalidtoken"}
 r = httpx.get(pokemomapi.catch_them_all(), headers=bad_headers)
 assert r.status_code == 401, "Invalid token should be rejected"
 
-# POKEMON DETAIL
 print("get one fire pokemen detail")
 TEST_POKEMON = "charmander"  # fire-type
 r = httpx.get(pokemomapi.details(TEST_POKEMON), headers=ash.headers())
@@ -97,20 +90,23 @@ assert r.status_code == 200, f"Should access details of {TEST_POKEMON}"
 pokemon_data = r.json()
 assert "fire" in [t["type"]["name"] for t in pokemon_data["types"]], "Wrong type"
 
-# Test Access a pokemon out of user's group
+TEST_POKEMON = "4"  # charmander ID
+r = httpx.get(pokemomapi.details(TEST_POKEMON), headers=ash.headers())
+assert r.status_code == 200, f"Should access details of {TEST_POKEMON}"
+pokemon_data = r.json()
+assert "fire" in [t["type"]["name"] for t in pokemon_data["types"]], "Wrong type"
+
+
 print("get one fire pokemen detail without user")
 r = httpx.get(pokemomapi.details("squirtle"), headers=ash.headers())  # water-type
 assert r.status_code == 403, "User shouldn't access squirtle (not in water group)"
 
-# REMOVE GROUP
 print("get remove ash from fire")
 r = httpx.post(secureapi.remove("fire"), headers=ash.headers())
 assert r.status_code in (200, 204), "Group remove failed"
 
-# Test After removal, shouldn't access charmander anymore
 print("try to get pokemon without ash")
 r = httpx.get(pokemomapi.details("charmander"), headers=ash.headers())
 assert r.status_code == 403, "Access to charmander should now be denied"
 
-# CLEAN CONSOLE
 print("✅ All tests passed with intentional failure cases verified.")

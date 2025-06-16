@@ -89,39 +89,34 @@ poetry run python src/test_runner.py
 ### Authenticate and get JWT token
 
 ```bash
-curl -X POST http://localhost:8001/api/login/ \
-  -H "Content-Type: application/json" \
-  -d '{"username": "ash", "password": "pikachu"}'
+curl -X POST http://localhost:8001/api/login/ -H "Content-Type: application/json" -d '{"username": "ash", "password": "pikachu"}'
 ```
 
 Response:
 
 ```json
 {
-  "access": "<your_jwt_token>",
-  "refresh": "<your_refresh_token>"
+  "access": "<jwt_token>",
+  "refresh": "<refresh_token>"
 }
 ```
 
 ### Add user to a Pokémon type group
 
 ```bash
-curl -X POST http://localhost:8001/api/group/fire/add/ \
-  -H "Authorization: Bearer <your_jwt_token>"
+curl -X POST http://localhost:8001/api/group/fire/add/ -H "Authorization: Bearer <jwt_token>"
 ```
 
 ### Remove user from a type group
 
 ```bash
-curl -X POST http://localhost:8001/api/group/fire/remove/ \
-  -H "Authorization: Bearer <your_jwt_token>"
+curl -X POST http://localhost:8001/api/group/fire/remove/ -H "Authorization: Bearer <jwt_token>"
 ```
 
 ### Get current user and groups
 
 ```bash
-curl http://localhost:8001/api/user/me/ \
-  -H "Authorization: Bearer <your_jwt_token>"
+curl http://localhost:8001/api/user/me/ -H "Authorization: Bearer <jwt_token>"
 ```
 
 ---
@@ -131,8 +126,7 @@ curl http://localhost:8001/api/user/me/ \
 ### Get all accessible Pokémons
 
 ```bash
-curl http://localhost:8002/api/pokemon/ \
-  -H "Authorization: Bearer <your_jwt_token>"
+curl http://localhost:8002/api/pokemon/ -H "Authorization: Bearer <jwt_token>"
 ```
 
 Returns only the Pokémons with types matching your groups.
@@ -140,8 +134,7 @@ Returns only the Pokémons with types matching your groups.
 ### Get details of a Pokémon (by name or ID)
 
 ```bash
-curl http://localhost:8002/api/pokemon/bulbasaur/ \
-  -H "Authorization: Bearer <your_jwt_token>"
+curl http://localhost:8002/api/pokemon/bulbasaur/ -H "Authorization: Bearer <jwt_token>"
 ```
 
 
@@ -151,7 +144,6 @@ curl http://localhost:8002/api/pokemon/bulbasaur/ \
 
 * Python 3.10+
 * Django REST Framework
-* SimpleJWT
 * SQLite (default dev DB)
 * Docker / Docker Compose
 * httpx (for testeur)

@@ -19,8 +19,12 @@ COPY . .
 
 RUN poetry config virtualenvs.create false && poetry install --no-interaction --no-ansi
 
-EXPOSE 8001
 
+WORKDIR /app/app
+RUN poetry shell && python manage.py migrate && python manage.py createsuperuser && python manage.py create_users
+WORKDIR /app
+
+EXPOSE 8001
 
 CMD ["poetry", "run", "python", "app/manage.py", "runserver", "0.0.0.0:8001"]
 
