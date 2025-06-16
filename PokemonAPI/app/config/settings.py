@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,11 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-example-insecure-8-r*rtd0ri*xtfe4r%*3d7o$oj+tmgo5)5k85!yw^e%av8z^_n"
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-example-insecure-8-r*rtd0ri*xtfe4r%*3d7o$oj+tmgo5)5k85!yw^e%av8z^_n")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
+DEBUG = os.environ.get("DEBUG", True)
 
 # Application definition
 
@@ -120,10 +121,11 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SECURE_API_URL = "http://secureapi:8001/api"
+SECURE_API_URL = os.environ.get("SECURE_API_URL", "http://localhost:8001/api")
+
 POKEAPI_BASE = "https://pokeapi.co/api/v2"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
 LOG_DIR = BASE_DIR / "logs"
 LOG_DIR.mkdir(exist_ok=True)
